@@ -497,6 +497,7 @@ img { max-width: 100%; display: block; }
 .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 @media (max-width: 780px) {
   .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .home-deck-grid { grid-template-columns: repeat(3, 1fr) !important; max-width: 480px !important; }
 }
 
 /* ---------- SNS ---------- */
@@ -655,16 +656,21 @@ img { max-width: 100%; display: block; }
 <section class="section">
   <div class="wrap">
     <div class="section-head">
-      <div class="section-title"><span class="num">DECKLIST</span>最新のデッキリスト</div>
+      <div class="section-title"><span class="num">DECKLIST</span>スタンダード上位デッキリスト</div>
       <a href="decklist.html" class="section-link">デッキリストを見る →</a>
     </div>
     <div class="card">
       <h4 style="font-family:var(--font-display);margin:0 0 4px;">第4回のスタンダード優勝デッキ</h4>
+      <p style="color:var(--ink-dim);font-family:var(--font-mono);font-size:0.75rem;margin:0 0 6px;">2025.6.15</p>
       <p style="color:var(--gold-bright);font-family:var(--font-display);font-weight:700;margin:0 0 20px;">イゼット果敢</p>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:480px;">
+      <div class="home-deck-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:12px;max-width:900px;">
         <img src="https://api.scryfall.com/cards/named?fuzzy=%E3%83%89%E3%83%AC%E3%82%A4%E3%82%AF%E3%81%AE%E5%AD%B5%E5%8D%B5%E8%80%85&format=image&version=normal" alt="ドレイクの孵卵者" loading="lazy" style="width:100%;border-radius:8px;border:1px solid var(--line);display:block;">
         <img src="https://api.scryfall.com/cards/named?fuzzy=%E5%83%A7%E9%99%A2%E3%81%AE%E9%80%9F%E6%A7%8D&format=image&version=normal" alt="僧院の速槍" loading="lazy" style="width:100%;border-radius:8px;border:1px solid var(--line);display:block;">
         <img src="https://api.scryfall.com/cards/named?fuzzy=%E3%82%B3%E3%83%BC%E3%83%AA%E9%8B%BC%E3%81%AE%E7%9F%AD%E5%88%80&format=image&version=normal" alt="コーリ鋼の短刀" loading="lazy" style="width:100%;border-radius:8px;border:1px solid var(--line);display:block;">
+        <img src="https://api.scryfall.com/cards/named?fuzzy=%E6%B4%AA%E6%B0%B4%E3%81%AE%E5%A4%A7%E5%8F%A3%E3%81%B8&format=image&version=normal" alt="洪水の大口へ" loading="lazy" style="width:100%;border-radius:8px;border:1px solid var(--line);display:block;">
+        <img src="https://api.scryfall.com/cards/named?fuzzy=%E9%81%B8%E6%8A%9E&format=image&version=normal" alt="選択" loading="lazy" style="width:100%;border-radius:8px;border:1px solid var(--line);display:block;">
+        <img src="https://api.scryfall.com/cards/named?fuzzy=%E5%92%86%E5%93%AE%E3%81%99%E3%82%8B%E7%84%BC%E7%82%89&format=image&version=normal" alt="咆哮する焼炉" loading="lazy" style="width:100%;border-radius:8px;border:1px solid var(--line);display:block;">
+        <img src="https://api.scryfall.com/cards/named?fuzzy=%E3%82%AA%E3%83%9A%E3%83%A9%E5%8A%87%E5%A0%B4%E3%81%AE%E3%83%A9%E3%83%96%E3%82%BD%E3%83%B3%E3%82%B0&format=image&version=normal" alt="オペラ劇場のラブソング" loading="lazy" style="width:100%;border-radius:8px;border:1px solid var(--line);display:block;">
       </div>
       <a href="decklist.html" style="display:inline-block;margin-top:20px;font-family:var(--font-mono);font-size:0.82rem;color:var(--gold-bright);border-bottom:1px solid var(--gold-dim);padding-bottom:2px;">(デッキリストを見る)</a>
     </div>
