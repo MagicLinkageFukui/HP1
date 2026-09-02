@@ -555,7 +555,14 @@ img { max-width: 100%; display: block; }
 .site-footer .brand { flex-direction: column; gap: 12px; }
 
 .deck-list { list-style:none; margin:0; padding:0; columns:1; }
-.deck-list li { padding:8px 0; border-bottom:1px solid var(--line); font-size:0.95rem; }
+@media (max-width: 780px) {
+  .deck-columns { grid-template-columns: 1fr 1fr !important; gap: 12px !important; }
+  .deck-list li { font-size: 0.82rem; }
+}
+@media (max-width: 400px) {
+  .deck-list li { font-size: 0.74rem; }
+}
+.deck-list li { padding:3px 0; font-size:0.95rem; }
 .deck-card { position:relative; cursor:help; border-bottom:1px dotted var(--gold-dim); }
 .deck-qty { font-family:var(--font-mono); color:var(--gold-bright); margin-right:4px; }
 .deck-preview {
@@ -644,14 +651,29 @@ img { max-width: 100%; display: block; }
   <h1>デッキリスト</h1>
 </div>
 
-<section class="section" style="border-bottom:none;padding-bottom:0;">
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-title"><span class="num">INDEX</span></div>
+    </div>
+    <ul style="list-style:none;margin:0;padding:0;">
+      <li style="padding:10px 0;border-bottom:1px solid var(--line);">
+        <a href="#deck-04-champion" style="color:var(--gold-bright);font-family:var(--font-mono);font-size:0.9rem;">第4回 優勝(イゼット果敢) — ヨシダ様</a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section id="deck-04-champion" class="section" style="border-bottom:none;padding-bottom:0;">
   <div class="wrap">
     <div class="section-head">
       <div class="section-title"><span class="num">CHAMPION DECK</span>第4回のスタンダード優勝デッキ</div>
     </div>
-    <p style="color:var(--ink-dim);margin-bottom:32px;">優勝者: ヨシダ様</p>
+    <p style="color:var(--ink-dim);margin-bottom:4px;">優勝者: ヨシダ様</p>
+    <p style="color:var(--gold-bright);font-family:var(--font-display);font-size:1.3rem;font-weight:700;margin-bottom:32px;">イゼット果敢</p>
+    <h3 style="font-family:var(--font-display);font-size:1.05rem;color:var(--gold-bright);margin-bottom:16px;">メインボード</h3>
 
-    <div class="grid-2">
+    <div class="grid-2 deck-columns">
       <ul class="deck-list">
         <li><span class="deck-card">
           <span class="deck-qty">3</span> ドレイクの孵卵者
@@ -740,7 +762,7 @@ img { max-width: 100%; display: block; }
 <section class="section" style="border-bottom:none;padding-top:20px;">
   <div class="wrap">
     <div class="section-head">
-      <div class="section-title"><span class="num">CARD IMAGES</span>メインボード</div>
+      <div class="section-title"><span class="num">CARD IMAGES</span></div>
     </div>
     <div class="deck-grid">
       <div class="deck-thumb">
