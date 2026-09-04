@@ -435,6 +435,7 @@ img { max-width: 100%; display: block; }
   padding: 20px 24px;
   border: 1px solid var(--line);
   margin-bottom: 12px;
+  position: relative;
   transition: border-color 0.25s ease, background 0.25s ease;
 }
 .archive-entry:hover {
@@ -464,7 +465,8 @@ img { max-width: 100%; display: block; }
   font-size: 1rem;
 }
 @media (max-width: 600px) {
-  .archive-entry { grid-template-columns: 1fr; gap: 8px; }
+  .archive-entry { grid-template-columns: 1fr; gap: 4px; padding-right: 40px; }
+  .archive-entry .arrow { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); }
 }
 
 /* ---------- 詳細情報テーブル ---------- */
@@ -660,6 +662,21 @@ img { max-width: 100%; display: block; }
       <a href="decklist.html" class="section-link">デッキリストを見る →</a>
     </div>
     <div class="card">
+      <h4 style="font-family:var(--font-display);margin:0 0 4px;">北陸MTG交流会 スタンダード優勝デッキ</h4>
+      <p style="color:var(--ink-dim);font-family:var(--font-mono);font-size:0.75rem;margin:0 0 6px;">2026.6.14</p>
+      <p style="color:var(--gold-bright);font-family:var(--font-display);font-weight:700;margin:0 0 20px;">イゼットスペレメンタル</p>
+      <div class="home-deck-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:12px;max-width:900px;">
+        <img src="https://api.scryfall.com/cards/named?fuzzy=%E6%B8%A6%E6%B3%A5%E3%81%AE%E8%9F%B9&format=image&version=normal" alt="渦泥の蟹" loading="lazy" style="width:100%;border-radius:8px;border:1px solid var(--line);display:block;">
+        <img src="https://api.scryfall.com/cards/named?fuzzy=%E5%88%BB%E3%81%BF%E7%BE%A4%E3%82%8C&format=image&version=normal" alt="刻み群れ" loading="lazy" style="width:100%;border-radius:8px;border:1px solid var(--line);display:block;">
+        <img src="https://api.scryfall.com/cards/named?fuzzy=%E3%81%8B%E3%81%BE%E3%81%A9%E3%81%AE%E7%B2%BE&format=image&version=normal" alt="かまどの精" loading="lazy" style="width:100%;border-radius:8px;border:1px solid var(--line);display:block;">
+        <img src="https://api.scryfall.com/cards/named?fuzzy=%E3%83%97%E3%83%AA%E3%82%BA%E3%83%9E%E3%83%AA%E3%81%AE%E9%AD%94%E9%99%A4%E3%81%91&format=image&version=normal" alt="プリズマリの魔除け" loading="lazy" class="mobile-hide" style="width:100%;border-radius:8px;border:1px solid var(--line);display:block;">
+        <img src="https://api.scryfall.com/cards/named?fuzzy=%E5%82%B7%E6%AE%8B%E3%81%99%E6%89%B9%E8%A9%95&format=image&version=normal" alt="傷残す批評" loading="lazy" class="mobile-hide" style="width:100%;border-radius:8px;border:1px solid var(--line);display:block;">
+        <img src="https://api.scryfall.com/cards/named?fuzzy=%E5%99%B4%E5%87%BA%E3%81%AE%E7%A8%B2%E5%A6%BB&format=image&version=normal" alt="噴出の稲妻" loading="lazy" class="mobile-hide" style="width:100%;border-radius:8px;border:1px solid var(--line);display:block;">
+        <img src="https://api.scryfall.com/cards/named?fuzzy=%E6%89%8B%E7%B7%B4&format=image&version=normal" alt="手練" loading="lazy" class="mobile-hide" style="width:100%;border-radius:8px;border:1px solid var(--line);display:block;">
+      </div>
+      <a href="decklist.html" class="section-link">デッキリストを見る →</a>
+    </div>
+    <div class="card">
       <h4 style="font-family:var(--font-display);margin:0 0 4px;">第4回のスタンダード優勝デッキ</h4>
       <p style="color:var(--ink-dim);font-family:var(--font-mono);font-size:0.75rem;margin:0 0 6px;">2025.6.15</p>
       <p style="color:var(--gold-bright);font-family:var(--font-display);font-weight:700;margin:0 0 20px;">イゼット果敢</p>
@@ -672,7 +689,7 @@ img { max-width: 100%; display: block; }
         <img src="https://api.scryfall.com/cards/named?fuzzy=%E5%92%86%E5%93%AE%E3%81%99%E3%82%8B%E7%84%BC%E7%82%89&format=image&version=normal" alt="咆哮する焼炉" loading="lazy" class="mobile-hide" style="width:100%;border-radius:8px;border:1px solid var(--line);display:block;">
         <img src="https://api.scryfall.com/cards/named?fuzzy=%E3%82%AA%E3%83%9A%E3%83%A9%E5%8A%87%E5%A0%B4%E3%81%AE%E3%83%A9%E3%83%96%E3%82%BD%E3%83%B3%E3%82%B0&format=image&version=normal" alt="オペラ劇場のラブソング" loading="lazy" class="mobile-hide" style="width:100%;border-radius:8px;border:1px solid var(--line);display:block;">
       </div>
-      <a href="decklist.html" style="display:inline-block;margin-top:20px;font-family:var(--font-mono);font-size:0.82rem;color:var(--gold-bright);border-bottom:1px solid var(--gold-dim);padding-bottom:2px;">(デッキリストを見る)</a>
+      <a href="decklist.html#deck-hokuriku-champion" style="display:inline-block;margin-top:20px;font-family:var(--font-mono);font-size:0.82rem;color:var(--gold-bright);border-bottom:1px solid var(--gold-dim);padding-bottom:2px;">(デッキリストを見る)</a>
     </div>
   </div>
 </section>

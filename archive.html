@@ -432,6 +432,7 @@ img { max-width: 100%; display: block; }
   padding: 20px 24px;
   border: 1px solid var(--line);
   margin-bottom: 12px;
+  position: relative;
   transition: border-color 0.25s ease, background 0.25s ease;
 }
 .archive-entry:hover {
@@ -461,7 +462,8 @@ img { max-width: 100%; display: block; }
   font-size: 1rem;
 }
 @media (max-width: 600px) {
-  .archive-entry { grid-template-columns: 1fr; gap: 8px; }
+  .archive-entry { grid-template-columns: 1fr; gap: 4px; padding-right: 40px; }
+  .archive-entry .arrow { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); }
 }
 
 /* ---------- 詳細情報テーブル ---------- */
