@@ -739,7 +739,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return result;
   }
 
-  fetch(CSV_URL)
+  fetch(CSV_URL + "&t=" + Date.now(), { cache: "no-store" })
     .then(res => res.text())
     .then(text => {
       const lines = text.split(/\r?\n/).filter(l => l.trim().length > 0);
