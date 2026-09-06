@@ -620,7 +620,7 @@ img { max-width: 100%; display: block; }
       <tr><th>開催時間</th><td>スタンダード 受付9:30 / 開始10:00<br>統率者 受付15:30 / 開始16:00</td></tr>
       <tr><th>参加費</th><td>3,000円(税込)</td></tr>
       <tr><th>定員</th><td>スタンダード24名 / 統率者28名</td></tr>
-      <tr><th>参加方法</th><td>公式フォームより事前申込<br>受付開始日は NEWS にてお知らせします</td></tr>
+      <tr><th>参加申込方法</th><td><a href="https://forms.gle/PSpeSGvgdgycwgwz6" target="_blank" rel="noopener" style="color:var(--gold-bright);border-bottom:1px solid var(--gold-dim);padding-bottom:2px;">参加申し込みフォームはこちら</a></td></tr>
       <tr><th>イベント内容</th><td>スタンダード / 統率者</td></tr>
     </table>
   </div>
@@ -629,18 +629,24 @@ img { max-width: 100%; display: block; }
 <section class="section">
   <div class="wrap">
     <div class="section-head">
-      <div class="section-title"><span class="num">STATUS</span>参加申し込み状況</div>
+      <div class="section-title"><span class="num">STATUS</span>参加申込状況</div>
     </div>
     <div class="grid-2">
       <div class="card">
-        <h4 style="font-family:var(--font-display);margin-top:0;">スタンダード</h4>
-        <ol id="standard-list" style="color:var(--ink-dim);font-size:0.9rem;padding-left:1.4em;margin:0;">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;">
+          <h4 style="font-family:var(--font-display);margin:0;">スタンダード</h4>
+          <span id="standard-count" style="font-family:var(--font-mono);font-size:0.85rem;color:var(--gold-bright);"></span>
+        </div>
+        <ol id="standard-list" style="color:var(--ink-dim);font-size:0.9rem;padding-left:1.4em;margin:12px 0 0;">
           <li style="opacity:0.6;">読み込み中...</li>
         </ol>
       </div>
       <div class="card">
-        <h4 style="font-family:var(--font-display);margin-top:0;">コマンダー</h4>
-        <ol id="commander-list" style="color:var(--ink-dim);font-size:0.9rem;padding-left:1.4em;margin:0;">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;">
+          <h4 style="font-family:var(--font-display);margin:0;">コマンダー</h4>
+          <span id="commander-count" style="font-family:var(--font-mono);font-size:0.85rem;color:var(--gold-bright);"></span>
+        </div>
+        <ol id="commander-list" style="color:var(--ink-dim);font-size:0.9rem;padding-left:1.4em;margin:12px 0 0;">
           <li style="opacity:0.6;">読み込み中...</li>
         </ol>
       </div>
@@ -748,9 +754,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const cols = parseCSVLine(lines[i]);
         const std = (cols[0] || '').trim();
         const cmd = (cols[1] || '').trim();
-        if (std) standardNames.push(std);
-        if (cmd) commanderNames.push(cmd);
+        if (std && std !== '#N/A') standardNames.push(std);
+        if (cmd && cmd !== '#N/A') commanderNames.push(cmd);
       }
+
+      const standardCountEl = document.getElementById('standard-count');
+      const commanderCountEl = document.getElementById('commander-count');
+      if (standardCountEl) standardCountEl.textContent = standardNames.length ? `現在${standardNames.length}人` : '';
+      if (commanderCountEl) commanderCountEl.textContent = commanderNames.length ? `現在${commanderNames.length}人` : '';
 
       standardEl.innerHTML = standardNames.length
         ? standardNames.map(n => `<li>${n}</li>`).join('')
