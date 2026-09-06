@@ -806,10 +806,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function processQueue(i) {
-    if (i >= queue.length) return;
-    var name = queue[i];
-    fetch("https://api.scryfall.com/cards/named?format=json&fuzzy=" + encodeURIComponent(name))
+  function fetchOne(name) {
+    return fetch("https://api.scryfall.com/cards/named?format=json&fuzzy=" + encodeURIComponent(name))
       .then(function(res) { return res.ok ? res.json() : null; })
       .then(function(data) {
         if (!data) return;
@@ -821,12 +819,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (url) applyImage(name, url);
       })
-      .catch(function() {})
-      .finally(function() {
-        setTimeout(function() { processQueue(i + 1); }, 120);
-      });
+      .catch(function() {});
   }
-  processQueue(0);
+
+  var CONCURRENCY = 6;
+  var next = 0;
+  function worker() {
+    if (next >= queue.length) return Promise.resolve();
+    var name = queue[next++];
+    return fetchOne(name).then(worker);
+  }
+  var workers = [];
+  for (var w = 0; w < CONCURRENCY; w++) workers.push(worker());
+  Promise.all(workers);
 })();
 </script>
 </body>
