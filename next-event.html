@@ -612,6 +612,7 @@ img { max-width: 100%; display: block; }
   <div class="wrap">
     <div class="section-head">
       <div class="section-title"><span class="num">DETAIL</span>開催概要</div>
+      <a href="https://forms.gle/PSpeSGvgdgycwgwz6" target="_blank" rel="noopener" class="btn btn-solid" style="white-space:nowrap;">参加申し込みはこちら</a>
     </div>
     <table class="spec-table">
       <tr><th>開催日</th><td>2026年10月17日(Sat)</td></tr>
@@ -622,6 +623,29 @@ img { max-width: 100%; display: block; }
       <tr><th>参加方法</th><td>公式フォームより事前申込<br>受付開始日は NEWS にてお知らせします</td></tr>
       <tr><th>イベント内容</th><td>スタンダード / 統率者</td></tr>
     </table>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-title"><span class="num">STATUS</span>参加申し込み状況</div>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <h4 style="font-family:var(--font-display);margin-top:0;">スタンダード</h4>
+        <ol id="standard-list" style="color:var(--ink-dim);font-size:0.9rem;padding-left:1.4em;margin:0;">
+          <li style="opacity:0.6;">読み込み中...</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h4 style="font-family:var(--font-display);margin-top:0;">コマンダー</h4>
+        <ol id="commander-list" style="color:var(--ink-dim);font-size:0.9rem;padding-left:1.4em;margin:0;">
+          <li style="opacity:0.6;">読み込み中...</li>
+        </ol>
+      </div>
+    </div>
+    <p style="color:var(--ink-dim);font-size:0.75rem;margin-top:16px;">※お申込み順に表示されます。反映まで数分かかる場合があります。</p>
   </div>
 </section>
 
@@ -685,6 +709,64 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+</script>
+<script>
+(function() {
+  const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTAJr1NvkNwdvR58AfoWvYkYahz2FYLNLmR8NWedlTplHf5dn-QySQiTY0dsgzxmWnX0X3rPf2gPfog/pub?gid=117945879&single=true&output=csv";
+
+  function parseCSVLine(line) {
+    const result = [];
+    let cur = '';
+    let inQuotes = false;
+    for (let i = 0; i < line.length; i++) {
+      const c = line[i];
+      if (c === '"') {
+        inQuotes = !inQuotes;
+      } else if (c === ',' && !inQuotes) {
+        result.push(cur);
+        cur = '';
+      } else {
+        cur += c;
+      }
+    }
+    result.push(cur);
+    return result;
+  }
+
+  fetch(CSV_URL)
+    .then(res => res.text())
+    .then(text => {
+      const lines = text.split(/\r?\n/).filter(l => l.trim().length > 0);
+      const standardEl = document.getElementById('standard-list');
+      const commanderEl = document.getElementById('commander-list');
+      if (!standardEl || !commanderEl) return;
+
+      const standardNames = [];
+      const commanderNames = [];
+      // skip header row (index 0)
+      for (let i = 1; i < lines.length; i++) {
+        const cols = parseCSVLine(lines[i]);
+        const std = (cols[0] || '').trim();
+        const cmd = (cols[1] || '').trim();
+        if (std) standardNames.push(std);
+        if (cmd) commanderNames.push(cmd);
+      }
+
+      standardEl.innerHTML = standardNames.length
+        ? standardNames.map(n => `<li>${n}</li>`).join('')
+        : '<li style="opacity:0.6;">現在申込みはありません</li>';
+
+      commanderEl.innerHTML = commanderNames.length
+        ? commanderNames.map(n => `<li>${n}</li>`).join('')
+        : '<li style="opacity:0.6;">現在申込みはありません</li>';
+    })
+    .catch(() => {
+      const standardEl = document.getElementById('standard-list');
+      const commanderEl = document.getElementById('commander-list');
+      if (standardEl) standardEl.innerHTML = '<li style="opacity:0.6;">読み込みに失敗しました</li>';
+      if (commanderEl) commanderEl.innerHTML = '<li style="opacity:0.6;">読み込みに失敗しました</li>';
+    });
+})();
 </script>
 </body>
 </html>
