@@ -793,20 +793,26 @@ document.addEventListener('DOMContentLoaded', () => {
 (function() {
   var imgs = Array.prototype.slice.call(document.querySelectorAll("img[data-card-name]"));
   if (!imgs.length) return;
-  var queue = [];
-  var seen = {};
+
+  var byName = {};
   imgs.forEach(function(img) {
     var name = img.getAttribute("data-card-name");
-    if (!seen[name]) { seen[name] = true; queue.push(name); }
+    if (!byName[name]) byName[name] = [];
+    byName[name].push(img);
   });
 
+  var cacheKeyPrefix = "mlf-card-img:";
+
   function applyImage(name, url) {
-    imgs.forEach(function(img) {
-      if (img.getAttribute("data-card-name") === name) img.src = url;
-    });
+    byName[name].forEach(function(img) { img.src = url; });
   }
 
   function fetchOne(name) {
+    try {
+      var cached = sessionStorage.getItem(cacheKeyPrefix + name);
+      if (cached) { applyImage(name, cached); return Promise.resolve(); }
+    } catch (e) {}
+
     return fetch("https://api.scryfall.com/cards/named?format=json&fuzzy=" + encodeURIComponent(name))
       .then(function(res) { return res.ok ? res.json() : null; })
       .then(function(data) {
@@ -817,21 +823,15 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (data.card_faces && data.card_faces[0] && data.card_faces[0].image_uris) {
           url = data.card_faces[0].image_uris.normal;
         }
-        if (url) applyImage(name, url);
+        if (url) {
+          applyImage(name, url);
+          try { sessionStorage.setItem(cacheKeyPrefix + name, url); } catch (e) {}
+        }
       })
       .catch(function() {});
   }
 
-  var CONCURRENCY = 6;
-  var next = 0;
-  function worker() {
-    if (next >= queue.length) return Promise.resolve();
-    var name = queue[next++];
-    return fetchOne(name).then(worker);
-  }
-  var workers = [];
-  for (var w = 0; w < CONCURRENCY; w++) workers.push(worker());
-  Promise.all(workers);
+  Object.keys(byName).forEach(function(name) { fetchOne(name); });
 })();
 </script>
 </body>
