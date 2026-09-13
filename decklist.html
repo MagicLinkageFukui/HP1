@@ -1616,6 +1616,24 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 </script>
+<script>
+(function() {
+  var imgs = Array.prototype.slice.call(document.querySelectorAll('img[src*="api.scryfall.com"]'));
+  var MAX_RETRIES = 5;
+  imgs.forEach(function(img) {
+    var attempts = 0;
+    var baseSrc = img.getAttribute('src');
+    img.addEventListener('error', function retry() {
+      attempts++;
+      if (attempts > MAX_RETRIES) return;
+      var delay = 800 * attempts;
+      setTimeout(function() {
+        img.src = baseSrc + (baseSrc.indexOf('?') > -1 ? '&' : '?') + 'retry=' + attempts + '_' + Date.now();
+      }, delay);
+    });
+  });
+})();
+</script>
 
 </body>
 </html>
